@@ -16,6 +16,7 @@ public:
     int Bind(const SocketAddress& inToAddress);
     int Listen(int inBackLog = 32);
     std::shared_ptr<TCPSocket> Accept(SocketAddress& inFromAddress);
+    int SetTCPWinSize(int winSize);
     int Send(const void* inData, int inLen);
     /**
      * Receiving data from a socket is a blocking operation. If there's no data to receive the thread will block until

@@ -7,6 +7,11 @@
 void Server::DoTCPLoop(int port) {
     TCPSocketPtr listenSocket = SocketUtil::CreateTCPSocket(INET);
     SocketAddress receivingAddress(INADDR_ANY, port);
+    if(listenSocket->SetTCPWinSize(5) != 0)
+    {
+        std::cerr << "Server failed to bind! Error: " << errno << " (" << strerror(errno) << ")" << std::endl;
+        return;
+    }
     if(listenSocket->Bind(receivingAddress) != 0)
     {
         std::cerr << "Server failed to bind! Error: " << errno << " (" << strerror(errno) << ")" << std::endl;
@@ -21,6 +26,8 @@ void Server::DoTCPLoop(int port) {
     //Add the listen socket in the vector to check for readability
     readBlockSockets.push_back(listenSocket);
     std::vector<TCPSocketPtr> readableSockets;
+
+
 
     while(true)
     {

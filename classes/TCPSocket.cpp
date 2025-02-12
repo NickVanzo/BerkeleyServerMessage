@@ -3,7 +3,7 @@
 //
 #include "../headers/TCPSocket.h"
 #include <arpa/inet.h>
-
+#include <sys/socket.h>
 int TCPSocket::Connect(const SocketAddress &inAddress)
 {
     std::cout << "Attempting to connect to address: "
@@ -81,6 +81,18 @@ int TCPSocket::Bind(const SocketAddress& inBindAddress)
         std::cout << "ERROR UDPSocket::Bind" << std::endl;
         return errno;
     }
+    return 0;
+}
+
+int TCPSocket::SetTCPWinSize(int winSize)
+{
+    int err = setsockopt(mSocket, SOL_SOCKET, SO_RCVBUF, &winSize, sizeof(winSize));
+
+    if(err < 0) {
+        std::cout << "ERROR TCPSocket::SetTCPWinSize" << std::endl;
+        return errno;
+    }
+
     return 0;
 }
 
