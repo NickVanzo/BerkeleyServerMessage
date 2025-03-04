@@ -6,11 +6,13 @@
 #include <cstdint>
 #include <cstdlib>
 #include <vector>
+#include "Quaternion.h"
+#include "MemoryStream.h
 
 /**
  * Read FROM the data stream, this is a wrapper around a buffer allocated on the heap
  */
-class InputMemoryStream
+class InputMemoryStream : public MemoryStream
 {
 public:
     InputMemoryStream(char* inBuffer, uint32_t inByteCount)
@@ -36,6 +38,11 @@ public:
         }
     }
 
+    virtual void Serialize(void* ioData, uint32_t inByteCount)
+    {
+        Read(ioData, inByteCount);
+    }
+    virtual bool IsInput() const {return true;};
 private:
     char* mBuffer;
     uint32_t mHead;

@@ -37,6 +37,10 @@ void OutputMemoryBitStream::WriteBits(uint8_t inData, size_t inBitCount)
     mBitHead = nextBitHead;
 }
 
-
-
-
+void OutputMemoryBitStream::Write(const Quaternion& inQuat) {
+    float precision = (2.f / 65535.f);
+    Write(ConvertToFixed(inQuat.mX, -1.f, precision), 16);
+    Write(ConvertToFixed(inQuat.mY, -1.f, precision), 16);
+    Write(ConvertToFixed(inQuat.mZ, -1.f, precision), 16);
+    Write(inQuat.mW < 0);
+}

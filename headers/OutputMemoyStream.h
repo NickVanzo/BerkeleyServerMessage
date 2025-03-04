@@ -4,12 +4,12 @@
 #pragma once
 #include <cstdint>
 #include <cstdlib>
-
+#include "MemoryStream.h"
 /**
  * An output memory stream acts as a source of input for the user
  * From input to stream
  */
-class OutputMemoryStream
+class OutputMemoryStream : public MemoryStream
 {
 public:
     OutputMemoryStream(): mBuffer(nullptr), mHead(0), mCapacity(0) {
@@ -22,6 +22,9 @@ public:
     void Write(const void* inData, size_t inByteCount);
     void Write(uint32_t inData) { Write(&inData, sizeof(inData));}
     void Write(int32_t inData) { Write(&inData, sizeof(inData)); }
+
+    virtual void Serialize(void* ioData, uint32_t inByteCount);
+    virtual bool IsInput() const {return false;};
 
 private:
     void ReallocBuffer(uint32_t inNewLength);

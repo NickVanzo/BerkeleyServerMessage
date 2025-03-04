@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <type_traits>
 #include <vector>
+#include "Quaternion.h"
 /**
  * We often want to be able to send as few bits as possible to the server
  */
@@ -65,7 +66,7 @@ public:
         }
     }
 
-
+    void Write(const Quaternion& inQuat);
 
     const char* GetBufferPtr() const {return mBuffer;}
     uint32_t    GetBitLength() const {return mBitHead;}

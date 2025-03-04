@@ -2,6 +2,7 @@
 // Created by Nicolò Vanzo on 13/02/25.
 //
 #include "../headers/OutputMemoyStream.h"
+#include "Quaternion.h"
 #include <algorithm>
 
 void OutputMemoryStream::ReallocBuffer(uint32_t inNewLength) {
@@ -19,3 +20,4 @@ void OutputMemoryStream::Write(const void *inData, size_t inByteCount) {
     std::memcpy(mBuffer + mHead, inData, inByteCount);
     mHead = resultHead;
 }
+

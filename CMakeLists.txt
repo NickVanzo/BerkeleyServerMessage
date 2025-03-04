@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.30)
 project(sockets)
-
 set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCES
-    classes/SocketAddress.cpp
+        classes/SocketAddress.cpp
         classes/SocketAddressFactory.cpp
         classes/SocketUtil.cpp
         classes/TCPSocket.cpp
@@ -14,6 +13,7 @@ set(SOURCES
         main.cpp
 )
 
+add_subdirectory(exercise7Chapter4) # Add the subdirectory
 include_directories(headers)
 add_executable(sockets ${SOURCES})
 target_link_libraries(sockets)
