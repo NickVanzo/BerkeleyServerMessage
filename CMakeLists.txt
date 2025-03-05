@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.17.3)
 project(sockets)
 set(CMAKE_CXX_STANDARD 20)
 
@@ -10,10 +10,12 @@ set(SOURCES
         classes/UDPSocket.cpp
         classes/Server.cpp
         classes/Client.cpp
-        main.cpp
+        classes/InputMemoryBitStream.cpp
+        classes/OutputMemoryBitStream.cpp
+        classes/OutputMemoryStream.cpp
+        classes/RoboCat.cpp
 )
 
-add_subdirectory(exercise7Chapter4) # Add the subdirectory
+add_subdirectory(ex8Chapter4) # Add the subdirectory
 include_directories(headers)
-add_executable(sockets ${SOURCES})
-target_link_libraries(sockets)
+add_library(sockets ${SOURCES})
