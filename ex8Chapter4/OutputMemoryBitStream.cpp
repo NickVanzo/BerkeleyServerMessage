@@ -7,20 +7,22 @@
 
 #include "OutputMemoryBitStream.h"
 #include "algorithm"
+#include <iostream>
 
 void OutputMemoryBitStream::Write(const std::unordered_map<int, int> & inMap)
 {
     auto size = static_cast<uint32_t>(inMap.size());
-    Write(size, sizeof(size));//4
+    Write(&size);
     for(const auto& pair : inMap)
     {
-        Write(pair.first, sizeof(pair.first)); //4
-        Write(pair.second, sizeof(pair.second)); //4
+        Write(&pair.first);
+        Write(&pair.second);
     }
 }
 
 void OutputMemoryBitStream::WriteBits(uint8_t inData, size_t inBitCount)
 {
+    std::cout << "Writing " << inBitCount << " bits in stream" << std::endl;
     uint32_t newHead = static_cast<uint32_t>(inBitCount) + mBitHead;
 
     if(newHead > mBitCapacity)

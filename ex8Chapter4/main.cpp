@@ -16,6 +16,6 @@ int main(int argc, char* argv[])
     myMap[10] = 2;
     OutputMemoryBitStream myStream;
     myStream.Write(myMap);
-    std::cout << sizeof(uint32_t) << std::endl;
-    std::cout << myStream.GetByteLength() << std::endl;
+    std::cout << "Byte in stream: " << myStream.GetByteLength() << std::endl;
+    std::cout << "Bits in stream: " << myStream.GetBitLength() << std::endl;
 }
