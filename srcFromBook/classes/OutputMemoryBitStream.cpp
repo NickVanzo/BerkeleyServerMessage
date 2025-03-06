@@ -3,6 +3,7 @@
 //
 #include "../headers/OutputMemoryBitStream.h"
 #include <algorithm>
+#include "../headers/CustomMath.h"
 
 
 void OutputMemoryBitStream::WriteBits(uint8_t inData, size_t inBitCount)

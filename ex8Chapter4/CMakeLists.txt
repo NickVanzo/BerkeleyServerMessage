@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.17.3)
 project(ex8Chapter4)
-set(SOURCES UnorderedMapConverted.cpp main.cpp)
+set(SOURCES OutputMemoryBitStream.cpp main.cpp)
 add_executable(exercise8 ${SOURCES})
-include_directories(../headers)
-target_link_libraries(exercise8 sockets)
 target_include_directories(exercise8 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/headers)
