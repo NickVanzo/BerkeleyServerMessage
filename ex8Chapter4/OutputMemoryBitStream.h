@@ -26,6 +26,7 @@ public:
 
     void Write(const std::unordered_map<int, int>&);
     void Write(uint32_t inData, size_t inBitCount = sizeof(uint32_t) * 8) { WriteBits(inData, inBitCount);}
+    void Write(const void* inData, size_t inBitCount = sizeof(uint32_t) * 8) { WriteBits(inData, inBitCount); }
 
 private:
     void ReallocBuffer(uint32_t inNewBitCapacity);
