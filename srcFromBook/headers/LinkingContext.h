@@ -8,31 +8,43 @@
 
 class LinkingContext {
 public:
-    uint32_t GetNetworkId(GameObject* inGameObject)
+    LinkingContext(): mNextNetworkId(1) {}
+
+
+
+    uint32_t GetNetworkId(GameObject* inGameObject, bool shouldCreateIfNotFound)
     {
         auto it = mGameObjectToNetworkIdMap.find(inGameObject);
         if(it != mGameObjectToNetworkIdMap.end())
         {
             return it->second;
         }
-        else
+        else if(shouldCreateIfNotFound)
         {
+            uint32_t newNetworkId = mNextNetworkId++;
+            AddGameObject(inGameObject, newNetworkId);
+            return newNetworkId;
+        } else {
             return 0;
         }
     }
-    GameObject* GetGameObject(uint32_t inNetworkId)
+
+    void AddGameObject(GameObject* inGameObject, uint32_t networkId)
     {
-        auto it = mNetworkIdToGameObjectMap.find(inNetworkId);
-        if(it != mNetworkIdToGameObjectMap.end())
-        {
-            return it->second;
-        }
-        else
-        {
-            return nullptr;
-        }
+        mNetworkIdToGameObjectMap[networkId] = inGameObject;
+        mGameObjectToNetworkIdMap[inGameObject] = networkId;
     }
+
+    void RemoveGameObject(GameObject* inGameObject)
+    {
+        uint32_t networkId = mGameObjectToNetworkIdMap[inGameObject];
+        mGameObjectToNetworkIdMap.erase(inGameObject);
+        mNetworkIdToGameObjectMap.erase(networkId);
+    }
+
+    GameObject* GetGameObject(uint32_t inNetworkId);
 private:
     std::unordered_map<uint32_t, GameObject*> mNetworkIdToGameObjectMap;
     std::unordered_map<GameObject*, uint32_t> mGameObjectToNetworkIdMap;
+    uint32_t mNextNetworkId;
 };
