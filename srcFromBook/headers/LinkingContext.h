@@ -10,8 +10,6 @@ class LinkingContext {
 public:
     LinkingContext(): mNextNetworkId(1) {}
 
-
-
     uint32_t GetNetworkId(GameObject* inGameObject, bool shouldCreateIfNotFound)
     {
         auto it = mGameObjectToNetworkIdMap.find(inGameObject);

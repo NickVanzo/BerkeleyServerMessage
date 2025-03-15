@@ -9,14 +9,17 @@
 #include "./InputMemoryStream.h"
 #include <vector>
 
-class RoboCat {
+class RoboCat  : public GameObject {
 public:
     RoboCat(): mHealth(10), mMeowCount(3), mHomeBase(0) {
         mName[0] = '\0';
     }
+    enum {kClassId = 'RBTC'};
     virtual void Update();
     void Write(OutputMemoryStream& inStream) const;
     void Read(InputMemoryStream& inStream);
+    virtual uint32_t GetClassId() const {return kClassId;}
+    static GameObject* CreateInstance() {return new RoboCat();}
 private:
     int32_t mHealth;
     int32_t mMeowCount;
