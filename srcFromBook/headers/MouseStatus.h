@@ -4,10 +4,20 @@
 
 #pragma once
 #include "string"
+#include "./GameObject.h"
 #include "./ReflectionSystem.h"
 #define OffsetOf(c, mv) ((size_t) & (static_cast<c*>(nullptr)->mv))
 
-class MouseStatus
+enum MouseStatusProperties
+{
+    MSP_Name        = 1 << 0,
+    MSP_LegCount    = 1 << 1,
+    MPS_HeadCount   = 1 << 2,
+    MSP_Health      = 1 << 3,
+    MSP_MAX
+};
+
+class MouseStatus : public GameObject
 {
 public:
     std::string     mName;
@@ -25,5 +35,8 @@ public:
                     MemberVariable("mHealth", EPT_Float, OffsetOf(MouseStatus, mHeadCount))
                 });
     };
+
+    void Write(OutputMemoryBitStream& inStream, uint32_t inProperties);
+    void Read(InputMemoryBitStream& outStream);
 
 };

@@ -12,17 +12,19 @@
 void OutputMemoryBitStream::Write(const std::unordered_map<int, int> & inMap)
 {
     auto size = static_cast<uint32_t>(inMap.size());
-    Write(&size);
+    std::cout << "Writing elementsInMap: " << size << std::endl;
+
+    Write(&size, sizeof(uint32_t) * 8);
     for(const auto& pair : inMap)
     {
-        Write(&pair.first);
-        Write(&pair.second);
+        std::cout << "Writing key-value pair: " << pair.first << " -> " << pair.second << std::endl;
+        Write(&pair.first, sizeof(int) * 8);
+        Write(&pair.second, sizeof(int) * 8);
     }
 }
 
 void OutputMemoryBitStream::WriteBits(uint8_t inData, size_t inBitCount)
 {
-    std::cout << "Writing " << inBitCount << " bits in stream" << std::endl;
     uint32_t newHead = static_cast<uint32_t>(inBitCount) + mBitHead;
 
     if(newHead > mBitCapacity)

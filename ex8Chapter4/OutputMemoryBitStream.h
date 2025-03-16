@@ -28,6 +28,18 @@ public:
     void Write(uint32_t inData, size_t inBitCount = sizeof(uint32_t) * 8) { WriteBits(inData, inBitCount);}
     void Write(const void* inData, size_t inBitCount = sizeof(uint32_t) * 8) { WriteBits(inData, inBitCount); }
 
+    template<typename tKey, typename tValue>
+    void Write(const std::unordered_map<tKey, tValue>& inMap) {
+        auto size = static_cast<uint32_t>(inMap.size());
+        Write(size, sizeof(uint32_t) * 8);
+
+        for(const auto& pair : inMap)
+        {
+            Write(&pair.first, sizeof(tKey) * 8);
+            Write(&pair.second, sizeof(tValue) * 8);
+        }
+    }
+
 private:
     void ReallocBuffer(uint32_t inNewBitCapacity);
     char* mBuffer;

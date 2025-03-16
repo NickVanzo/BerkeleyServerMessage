@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17.3)
 project(ex8Chapter4)
-set(SOURCES OutputMemoryBitStream.cpp main.cpp)
+set(SOURCES OutputMemoryBitStream.cpp main.cpp InputMemoryStream.cpp InputMemoryStream.h ../ex11Chapter4/OutputMemoryBitStream.cpp ../ex11Chapter4/OutputMemoryBitStream.h Matrix.h ../srcFromBook/headers/PacketType.h ../srcFromBook/headers/RoboMouse.h ../srcFromBook/headers/ObjectCreationRegistry.h ../srcFromBook/headers/ReplicationManager.h ../srcFromBook/classes/ReplicationManager.cpp ../srcFromBook/headers/RequireBitsUtilities.h ../srcFromBook/headers/ReplicationHeader.h ../srcFromBook/classes/ReplicationHeader.cpp ../srcFromBook/classes/MouseStatus.cpp)
 add_executable(exercise8 ${SOURCES})
 target_include_directories(exercise8 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/headers)
