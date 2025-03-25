@@ -1,8 +1,6 @@
+#include "./srcFromBook/headers/Server.h"
+#include "./srcFromBook/headers/Client.h"
 #include <iostream>
-#include "headers/TCPSocket.h"
-#include "headers/Server.h"
-#include "headers/Client.h"
-#include <arpa/inet.h>
 
 #define PORT 48000
 

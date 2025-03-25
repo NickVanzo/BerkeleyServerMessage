@@ -2,12 +2,10 @@
 // Created by Nicolò Vanzo on 13/02/25.
 //
 #include "../headers/OutputMemoyStream.h"
-#include "Quaternion.h"
 #include <algorithm>
 
 void OutputMemoryStream::ReallocBuffer(uint32_t inNewLength) {
     mBuffer = static_cast<char*>(std::realloc(mBuffer, inNewLength));
-    //handle realloc errors
     mCapacity = inNewLength;
 }
 

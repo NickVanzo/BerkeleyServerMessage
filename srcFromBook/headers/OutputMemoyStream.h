@@ -16,6 +16,7 @@ public:
         ReallocBuffer(32);
     }
     ~OutputMemoryStream() {free(mBuffer);};
+
     const char* GetBufferPtr() const { return mBuffer; }
     uint32_t GetLength() const { return mHead; }
 
@@ -23,7 +24,9 @@ public:
     void Write(uint32_t inData) { Write(&inData, sizeof(inData));}
     void Write(int32_t inData) { Write(&inData, sizeof(inData)); }
 
-    virtual void Serialize(void* ioData, uint32_t inByteCount);
+    virtual void Serialize(void* ioData, uint32_t inByteCount) {
+        Write(ioData, inByteCount);
+    }
     virtual bool IsInput() const {return false;};
 
 private:

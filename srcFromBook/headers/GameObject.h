@@ -13,8 +13,8 @@ public:
     enum {kClassId = 'GOBJ'};
     virtual uint32_t GetClassId() const {return kClassId;}
     static GameObject* CreateInstance() {return new GameObject();}
-    void Write(OutputMemoryBitStream& inStream) const;
-    void Read(InputMemoryStream& outStream);
-    void Read(InputMemoryBitStream& outStream);
-    void Destroy();
+    void Write(OutputMemoryBitStream& inStream) const {};
+    void Read(InputMemoryStream& outStream) {};
+    void Read(InputMemoryBitStream& outStream) {};
+    void Destroy() {};
 };

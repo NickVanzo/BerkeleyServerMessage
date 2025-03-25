@@ -23,7 +23,7 @@ void MouseStatus::Write(OutputMemoryBitStream &inStream, uint32_t inProperties)
 void MouseStatus::Read(InputMemoryBitStream &outStream)
 {
     uint32_t writtenProperties;
-    outStream.Read(writtenProperties, GetRequiredBits<MSP_MAX>::Value);
+    outStream.Read<uint32_t>(writtenProperties, GetRequiredBits<MSP_MAX>::Value);
     if((writtenProperties & MSP_Name) != 0)
         outStream.Read(mName);
 

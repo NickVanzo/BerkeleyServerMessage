@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <vector>
 #include "Quaternion.h"
-#include "MemoryStream.h
+#include "MemoryStream.h"
 
 /**
  * Read FROM the data stream, this is a wrapper around a buffer allocated on the heap
@@ -16,7 +16,7 @@ class InputMemoryStream : public MemoryStream
 {
 public:
     InputMemoryStream(char* inBuffer, uint32_t inByteCount)
-        : mBuffer(mBuffer),
+        : mBuffer(inBuffer),
         mCapacity(inByteCount),
         mHead(0)
         {}

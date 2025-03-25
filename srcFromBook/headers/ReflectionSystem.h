@@ -32,7 +32,7 @@ private:
 
 class DataType {
 public:
-    DataType(std::initializer_list<MemberVariable> inMVs) :
+    DataType(std::vector<MemberVariable> inMVs) :
     mMemberVariables(inMVs)
     {}
 

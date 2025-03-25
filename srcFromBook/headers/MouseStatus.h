@@ -38,5 +38,4 @@ public:
 
     void Write(OutputMemoryBitStream& inStream, uint32_t inProperties);
     void Read(InputMemoryBitStream& outStream);
-
 };

@@ -5,14 +5,17 @@
 #pragma once
 #include "Quaternion.h"
 #include <cstdlib>
+#include <type_traits>
+#include <cstring>
+#include "string"
+
 class InputMemoryBitStream {
 public:
     InputMemoryBitStream(const char* inBuffer, uint32_t inBitCount):
         mBuffer(inBuffer), mBitCounter(inBitCount), mBitHead(0) {}
 
-    void Read(uint32_t& outData, uint32_t inBitCount);
+//    void Read(uint32_t& outData, uint32_t inBitCount);
     void Read(bool& outData);
-    void Read(Quaternion& outQuat);
 
     void Read(void* outData, uint32_t inBitCount) {
         if (mBitHead + inBitCount > mCapacity)
@@ -29,13 +32,24 @@ public:
     template<typename T>
     void Read(T& outData, size_t inBitCount = sizeof(T) * 8)
     {
-        static_assert(std::is_arithmetic<T>::Value || std::is_enum<T>::Value, "Incorrect type");
+        static_assert(std::is_arithmetic<T>::value || std::is_enum<T>::value, "Incorrect type");
         if(mBitHead + inBitCount > mBitCounter)
-            inBitCount = mBitCounter - mBiHead;
+            inBitCount = mBitCounter - mBitHead;
         std::memcpy(&outData, mBuffer + (mBitHead >> 3), (inBitCount + 7) >> 3);
         mBitHead += inBitCount;
     }
 
+    void Read(std::string& outData)
+    {
+        uint32_t l;
+        Read(l, sizeof(uint32_t) * 8);
+        outData.resize(l);
+        for(int i = 0; i < l; ++i) {
+            uint8_t c;
+            Read(c, 8);
+            outData[i] = static_cast<char>(c);
+        }
+    }
     void Read(uint32_t& outData) { Read(&outData, sizeof(outData)); }
 
     uint32_t GetRemainingBitCount() const {

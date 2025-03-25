@@ -11,4 +11,6 @@ public:
     enum { kClassId = 'RBMS' };
     virtual uint32_t GetClassId() const {return kClassId;}
     static GameObject* CreateInstance() {return new RoboMouse();}
+    void Read(InputMemoryBitStream& inStream);
+    void Write(OutputMemoryBitStream& outStream) const;
 };

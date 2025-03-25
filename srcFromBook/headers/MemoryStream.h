@@ -7,6 +7,7 @@
 #include <type_traits>
 #include "ByteSwapper.h"
 #include "config.h"
+#include <type_traits>
 #include "./ReflectionSystem.h"
 
 class MemoryStream {
@@ -16,7 +17,7 @@ class MemoryStream {
     template<typename T> void Serialize(T& ioData)
     {
         static_assert(
-                std::is_arithmetic<T>::value || std::is_enum<T>::value,
+                std::is_arithmetic<T>::value || std::is_enum<T>::value || std::is_same<T, std::string>::value,
                 "Generic serialize only supports primitive data types"
                 );
 
@@ -35,23 +36,30 @@ class MemoryStream {
         #endif
     }
 
+    void Serialize(std::string& inData)
+    {
+        uint32_t inDataLength = inData.size();
+        Serialize(inDataLength);
+        Serialize(inData);
+    }
+
     void Serialize(MemoryStream* inStream, const DataType* inDataType, uint8_t inData, uint32_t inProperties)
     {
         inStream->Serialize(inProperties);
         const auto& mvs = inDataType->GetMemberVariables();
         for(int mvIndex = 0, c = mvs.size(); mvIndex < c; ++mvIndex)
         {
-            if((1 << mvIndex) & inProperties) != 0)
+            if(((1 << mvIndex) & inProperties) != 0)
             {
                 const auto& mv = mvs[mvIndex];
-                void* mvData = inData + mv.GetOffset();
+                void* mvData = (void*) (inData + mv.GetOffset());
                 switch(mv.GetPrimitiveType())
                 {
                     case EPT_Int:
                         inStream->Serialize(*reinterpret_cast<int*>(mvData));
                         break;
                     case EPT_String:
-                        inStream->Serialize(*reinterpret_cast<string*>(mvData));
+                        inStream->Serialize(*reinterpret_cast<std::string*>(mvData));
                         break;
                     case EPT_Float:
                         inStream->Serialize(*reinterpret_cast<float*>(mvData));

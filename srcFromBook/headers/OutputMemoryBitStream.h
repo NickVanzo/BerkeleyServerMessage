@@ -53,8 +53,17 @@ public:
      */
     template<typename T>
     void Write(T inData, size_t inBitCount = sizeof(T) * 8) {
-        static_assert(std::is_arithmetic<T>::value || std::is_enum<T>::value, "Generic write only supports primitve types");
+        static_assert(
+                std::is_arithmetic<T>::value || std::is_enum<T>::value,
+                "Generic write only supports primitve types");
         WriteBits(&inData, inBitCount);
+    }
+
+    void Write(std::string& inData) {
+        uint32_t elements = inData.size();
+        WriteBits(elements, sizeof(uint32_t) * 8);
+        for(char c : inData)
+            WriteBits(static_cast<uint8_t>(c), 8);
     }
 
     template<typename T>
@@ -65,8 +74,6 @@ public:
             Write(element);
         }
     }
-
-    void Write(const Quaternion& inQuat);
 
     const char* GetBufferPtr() const {return mBuffer;}
     uint32_t    GetBitLength() const {return mBitHead;}

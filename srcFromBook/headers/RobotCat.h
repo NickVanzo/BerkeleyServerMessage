@@ -16,8 +16,11 @@ public:
     }
     enum {kClassId = 'RBTC'};
     virtual void Update();
-    void Write(OutputMemoryStream& inStream) const;
-    void Read(InputMemoryStream& inStream);
+
+    void Write(OutputMemoryBitStream& inStream) const;
+    void Read(InputMemoryBitStream& inStream);
+
+
     virtual uint32_t GetClassId() const {return kClassId;}
     static GameObject* CreateInstance() {return new RoboCat();}
 private:
