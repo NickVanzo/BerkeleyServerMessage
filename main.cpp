@@ -15,14 +15,18 @@ int main(int argc, char* argv[]) {
         }
     }
 
+
+
     if(isServer) {
+        std::cout << "Running server" << std::endl;
         std::unique_ptr<Server> server = std::make_unique<Server>();
         std::cout << "Starting server" << std::endl;
-        server->DoTCPLoop(PORT);
+//        server->DoTCPLoop(PORT);
     } else {
+        std::cout << "Running client" << std::endl;
         std::unique_ptr<Client> client = std::make_unique<Client>(PORT);
-        auto socket = client->Connect();
-        client->StartLoop(socket);
+//        auto socket = client->Connect();
+//        client->StartLoop(socket);
     }
 
     return 0;

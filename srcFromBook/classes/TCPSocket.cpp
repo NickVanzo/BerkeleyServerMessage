@@ -53,7 +53,6 @@ TCPSocketPtr TCPSocket::Accept(SocketAddress &inFromAddress) {
 int TCPSocket::Send(const void *inData, int inLen) {
     int bytesSentCount = send(mSocket, static_cast<const char*>(inData), inLen, 0);
 
-
     if(bytesSentCount < 0) {
         std::cout << "TCPSocket::Send Error: " << strerror(errno) << " (" << errno << ")" << std::endl;
         return -errno;
